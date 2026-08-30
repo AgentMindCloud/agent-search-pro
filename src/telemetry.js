@@ -16,11 +16,13 @@ export async function logEvent(evt) {
     ts: new Date().toISOString(),
     ...evt,
   });
+  // Console output is captured by Vercel logs and survives serverless filesystem recycling.
+  console.log(`[telemetry] ${line}`);
   try {
     await mkdir(LOG_DIR, { recursive: true });
     await appendFile(path.join(LOG_DIR, "interactions.jsonl"), line + "\n");
   } catch (e) {
-    console.error("[telemetry] write failed:", e.message);
+    console.error("[telemetry] local JSONL write failed:", e.message);
   }
   return line;
 }

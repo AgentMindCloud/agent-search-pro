@@ -34,7 +34,7 @@ const challenge = async (c, price, resourceUrl, description, responseBody, telem
 
 async function executePaid(c, { price, resourceUrl, description, toolName, fn, args, wrap }) {
   const txHash = c.req.header("x-payment-tx");
-  if (txHash) {
+  if (txHash && (MOCK_MODE || process.env.ALLOW_TX_HASH_FALLBACK === "1")) {
     const checked = await verifyTxPayment(txHash, price);
     await logEvent({ tool: toolName, event: checked.ok ? "paid_call" : "settle_failed", method: "onchain_tx", price_usd: price, tx: txHash, error: checked.error || null });
     if (!checked.ok) return challenge(c, price, resourceUrl, description, () => ({ error: `Payment verification failed: ${checked.error}` }));
@@ -89,7 +89,7 @@ function restPaid(path, toolName) {
     const price = TIERS[impl.tier].price;
     const resourceUrl = `${ORIGIN}${path}`;
     // Payment challenge happens before body validation, so discovery probes see 402.
-    if (!c.req.header("payment-signature") && !c.req.header("x-payment-tx")) {
+    if (!c.req.header("payment-signature") && !(c.req.header("x-payment-tx") && (MOCK_MODE || process.env.ALLOW_TX_HASH_FALLBACK === "1"))) {
       return challenge(c, price, resourceUrl, impl.description, undefined, toolName);
     }
     let args;

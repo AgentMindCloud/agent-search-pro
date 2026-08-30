@@ -20,7 +20,7 @@ Content-Type: application/json
 
 {"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"web_search","arguments":{"query":"x402 protocol"}}}
 ```
-Unpaid calls → **HTTP 402** with `paymentRequirements` (x402 V2). Retry with the `PAYMENT-SIGNATURE` header — settlement is USDC on Base (chain 8453), non-custodial, ~2s.
+Unpaid calls → **HTTP 402** with a canonical base64 `PAYMENT-REQUIRED` header (x402 V2). Compatible agent clients retry with `PAYMENT-SIGNATURE`; the public XPay facilitator verifies and settles EIP-3009 USDC directly from buyer to seller on Base.
 
 ## Discovery surfaces
 - `GET /health` — liveness + tiers
@@ -34,9 +34,9 @@ npm test                                # 16-check E2E suite
 ```
 
 ## Production env
-See `.env.example`. Requires: `SERPER_API_KEY`, `PAY_TO_ADDRESS` (Base wallet), `PUBLIC_URL`. Settlement verification uses the Coinbase CDP x402 facilitator.
+See `.env.example`. Requires: `SERPER_API_KEY`, `PAY_TO_ADDRESS` (Base wallet), and `PUBLIC_URL`. `X402_FACILITATOR_URL` optionally overrides the default public XPay facilitator. `ALCHEMY_URL` is only needed for the disabled-by-default manual tx-hash fallback.
 
 ## Telemetry
-Every interaction (free calls, 402 quotes, settlements, latency) appends to `telemetry/interactions.jsonl` — the data source for the A/B price loop and the daily Tool-Feedback cycle.
+Every interaction is emitted as structured `[telemetry]` JSON to platform logs; local development also appends `telemetry/interactions.jsonl`. Durable analytics storage is intentionally not claimed yet.
 
 Part of the Grokbot Autonomous Revenue system (`ranked-playbooks.md`).
