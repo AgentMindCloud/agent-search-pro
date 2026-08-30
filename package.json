@@ -1,0 +1,17 @@
+{
+  "name": "web-search-pro",
+  "version": "0.1.0",
+  "description": "x402 pay-per-call web search/scrape/analysis aggregator MCP server (Grokbot revenue experiment #1)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --env-file=.env --watch server.js",
+    "test": "node test/local-e2e.js"
+  },
+  "dependencies": {
+    "hono": "^4.6.0",
+    "@hono/node-server": "^1.13.0"
+  },
+  "engines": { "node": "22.x" }
+}

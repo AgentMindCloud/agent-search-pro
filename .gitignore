@@ -1,0 +1,8 @@
+node_modules/
+telemetry/
+.env
+.env.*
+!.env.example
+.vercel/
+
+.vercel
