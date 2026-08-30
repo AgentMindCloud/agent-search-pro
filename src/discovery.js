@@ -50,6 +50,7 @@ export function openApiDocument(origin) {
       title: "Agent Search Pro",
       version: "0.2.0",
       description: "Agent-native web search and multi-angle research synthesis paid per call in USDC on Base.",
+      contact: { url: "https://github.com/AgentMindCloud/agent-search-pro/issues" },
       "x-guidance": "Use POST /api/search for a normal web search ($0.02). Use POST /api/synthesis when the task needs current results, recent developments, and counterpoints ($0.10). GET /api/sample?q=... is free.",
     },
     servers: [{ url: origin }],
@@ -60,6 +61,7 @@ export function openApiDocument(origin) {
         get: {
           operationId: "webSearchSample",
           summary: "Free three-result web search sample",
+          security: [],
           parameters: [{ in: "query", name: "q", required: true, schema: { type: "string", minLength: 1 } }],
           responses: { "200": { description: "Free sample", content: { "application/json": { schema: resultSchema } } } },
         },

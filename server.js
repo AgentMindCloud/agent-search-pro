@@ -72,6 +72,7 @@ async function executePaid(c, { price, resourceUrl, description, toolName, fn, a
 
 // Discovery and free routes.
 app.get("/health", (c) => c.json({ ok: true, service: "agent-search-pro", version: "0.2.0", mock: MOCK_MODE, tiers: TIERS, facilitator: "xpay", ts: new Date().toISOString() }));
+app.get("/favicon.ico", (c) => c.body(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#111827"/><path d="M15 42 29 14h7L25 34h12l-5 16 17-26H37l5-10h7L35 50h-9l5-16H20l-5 8Z" fill="#60a5fa"/></svg>`, 200, { "Content-Type": "image/svg+xml", "Cache-Control": "public,max-age=86400" }));
 app.get("/openapi.json", (c) => c.json(openApiDocument(ORIGIN)));
 app.get("/.well-known/x402", (c) => c.json(wellKnown(ORIGIN)));
 app.get("/.well-known/x402.json", (c) => c.json(wellKnown(ORIGIN)));

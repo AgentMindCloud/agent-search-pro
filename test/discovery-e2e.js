@@ -25,6 +25,11 @@ try {
   check("OpenAPI has paid search", openapi.paths?.["/api/search"]?.post?.["x-payment-info"]?.price?.amount === "0.02");
   check("OpenAPI has paid synthesis", openapi.paths?.["/api/synthesis"]?.post?.["x-payment-info"]?.price?.amount === "0.10");
   check("OpenAPI declares input schema", openapi.paths?.["/api/search"]?.post?.requestBody?.content?.["application/json"]?.schema?.required?.includes("query"));
+  check("Free sample is excluded from payment probing", Array.isArray(openapi.paths?.["/api/sample"]?.get?.security) && openapi.paths["/api/sample"].get.security.length === 0);
+  check("OpenAPI has a contact URL", openapi.info?.contact?.url === "https://github.com/AgentMindCloud/agent-search-pro/issues");
+
+  const icon = await fetch(`${BASE}/favicon.ico`);
+  check("favicon is served", icon.status === 200 && (icon.headers.get("content-type") || "").includes("svg"));
 
   const wk = await fetch(`${BASE}/.well-known/x402`);
   const wkBody = await wk.json();
