@@ -35,7 +35,7 @@ try {
   const wk = await (await fetch(`${BASE}/.well-known/x402.json`)).json();
   check("x402 well-known", wk.resources?.includes("https://aggregator-beta.vercel.app/api/search") && wk.x402Version === 2);
   const llms = await (await fetch(`${BASE}/llms.txt`)).text();
-  check("llms.txt", llms.includes("/api/search") && llms.includes("USDC"));
+  check("llms.txt", llms.includes("/api/search") && llms.includes("USDC") && llms.includes("api@supersignal.tech"));
 
   // 3. initialize + session
   const init = await post({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} });

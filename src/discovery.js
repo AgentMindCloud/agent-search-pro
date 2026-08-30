@@ -50,7 +50,10 @@ export function openApiDocument(origin) {
       title: "Agent Search Pro",
       version: "0.2.0",
       description: "Agent-native web search and multi-angle research synthesis paid per call in USDC on Base.",
-      contact: { url: "https://github.com/AgentMindCloud/agent-search-pro/issues" },
+      contact: {
+        email: "api@supersignal.tech",
+        url: "https://github.com/AgentMindCloud/agent-search-pro/issues",
+      },
       "x-guidance": "Use POST /api/search for a normal web search ($0.02). Use POST /api/synthesis when the task needs current results, recent developments, and counterpoints ($0.10). GET /api/sample?q=... is free.",
     },
     servers: [{ url: origin }],

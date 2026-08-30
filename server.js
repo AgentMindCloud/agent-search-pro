@@ -78,7 +78,7 @@ app.get("/favicon.ico", (c) => c.body(`<svg xmlns="http://www.w3.org/2000/svg" v
 app.get("/openapi.json", (c) => c.json(openApiDocument(ORIGIN)));
 app.get("/.well-known/x402", (c) => c.json(wellKnown(ORIGIN)));
 app.get("/.well-known/x402.json", (c) => c.json(wellKnown(ORIGIN)));
-app.get("/llms.txt", (c) => c.text(`# Agent Search Pro\nFree sample: GET ${ORIGIN}/api/sample?q=x402\nPaid search: POST ${ORIGIN}/api/search ($0.02 USDC)\nPaid synthesis: POST ${ORIGIN}/api/synthesis ($0.10 USDC)\nOpenAPI: ${ORIGIN}/openapi.json\nMCP: ${ORIGIN}/mcp\n`));
+app.get("/llms.txt", (c) => c.text(`# Agent Search Pro\nFree sample: GET ${ORIGIN}/api/sample?q=x402\nPaid search: POST ${ORIGIN}/api/search ($0.02 USDC)\nPaid synthesis: POST ${ORIGIN}/api/synthesis ($0.10 USDC)\nOpenAPI: ${ORIGIN}/openapi.json\nMCP: ${ORIGIN}/mcp\nContact: api@supersignal.tech\n`));
 app.get("/api/sample", publicGetCors, async (c) => {
   const query = c.req.query("q");
   if (!query) return c.json({ error: "q is required" }, 400);
