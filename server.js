@@ -1,6 +1,7 @@
 // Agent Search Pro - x402 V2 HTTP API + MCP server.
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { TIERS, MOCK_MODE } from "./src/config.js";
 import {
   toolSample, toolSearch, toolSynthesis, make402,
@@ -13,6 +14,7 @@ import { openApiDocument, wellKnown } from "./src/discovery.js";
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_URL || "https://aggregator-beta.vercel.app";
 const app = new Hono();
+const publicGetCors = cors({ origin: "*" });
 
 const TOOL_DEFS = [
   { name: "web_search_sample", description: "FREE: one live web search, 3 results.", inputSchema: { type: "object", properties: { query: { type: "string" } }, required: ["query"] } },
@@ -71,13 +73,13 @@ async function executePaid(c, { price, resourceUrl, description, toolName, fn, a
 }
 
 // Discovery and free routes.
-app.get("/health", (c) => c.json({ ok: true, service: "agent-search-pro", version: "0.2.0", mock: MOCK_MODE, tiers: TIERS, facilitator: "xpay", ts: new Date().toISOString() }));
+app.get("/health", publicGetCors, (c) => c.json({ ok: true, service: "agent-search-pro", version: "0.2.0", mock: MOCK_MODE, tiers: TIERS, facilitator: "xpay", ts: new Date().toISOString() }));
 app.get("/favicon.ico", (c) => c.body(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#111827"/><path d="M15 42 29 14h7L25 34h12l-5 16 17-26H37l5-10h7L35 50h-9l5-16H20l-5 8Z" fill="#60a5fa"/></svg>`, 200, { "Content-Type": "image/svg+xml", "Cache-Control": "public,max-age=86400" }));
 app.get("/openapi.json", (c) => c.json(openApiDocument(ORIGIN)));
 app.get("/.well-known/x402", (c) => c.json(wellKnown(ORIGIN)));
 app.get("/.well-known/x402.json", (c) => c.json(wellKnown(ORIGIN)));
 app.get("/llms.txt", (c) => c.text(`# Agent Search Pro\nFree sample: GET ${ORIGIN}/api/sample?q=x402\nPaid search: POST ${ORIGIN}/api/search ($0.02 USDC)\nPaid synthesis: POST ${ORIGIN}/api/synthesis ($0.10 USDC)\nOpenAPI: ${ORIGIN}/openapi.json\nMCP: ${ORIGIN}/mcp\n`));
-app.get("/api/sample", async (c) => {
+app.get("/api/sample", publicGetCors, async (c) => {
   const query = c.req.query("q");
   if (!query) return c.json({ error: "q is required" }, 400);
   await logEvent({ tool: "web_search_sample", tier: "free", event: "call" });

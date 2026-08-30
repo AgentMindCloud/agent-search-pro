@@ -19,9 +19,10 @@ await new Promise((resolve) => {
 });
 
 try {
-  const openapiRes = await fetch(`${BASE}/openapi.json`);
+  const openapiRes = await fetch(`${BASE}/openapi.json`, { headers: { Origin: "https://supersignal.tech" } });
   const openapi = await openapiRes.json();
   check("OpenAPI is served", openapiRes.status === 200 && openapi.openapi === "3.1.0");
+  check("CORS middleware is not global", openapiRes.headers.get("access-control-allow-origin") === null);
   check("OpenAPI has paid search", openapi.paths?.["/api/search"]?.post?.["x-payment-info"]?.price?.amount === "0.02");
   check("OpenAPI has paid synthesis", openapi.paths?.["/api/synthesis"]?.post?.["x-payment-info"]?.price?.amount === "0.10");
   check("OpenAPI declares input schema", openapi.paths?.["/api/search"]?.post?.requestBody?.content?.["application/json"]?.schema?.required?.includes("query"));
@@ -51,9 +52,13 @@ try {
   check("Bazaar output schema is present", required.extensions?.bazaar?.schema?.properties?.output?.type === "object");
   check("Bazaar probe body is valid", required.extensions?.bazaar?.info?.input?.body?.query === "x402 agent payments");
 
-  const free = await fetch(`${BASE}/api/sample?q=x402`);
+  const health = await fetch(`${BASE}/health`, { headers: { Origin: "https://supersignal.tech" } });
+  check("health allows browser access", health.headers.get("access-control-allow-origin") === "*");
+
+  const free = await fetch(`${BASE}/api/sample?q=x402`, { headers: { Origin: "https://supersignal.tech" } });
   const freeBody = await free.json();
   check("free REST sample works", free.status === 200 && freeBody.tier === "free" && freeBody.results?.length === 3);
+  check("free sample allows browser access", free.headers.get("access-control-allow-origin") === "*");
 } catch (e) {
   check("discovery test completed", false, e.message);
 } finally {
