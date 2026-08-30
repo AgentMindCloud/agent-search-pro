@@ -6,3 +6,4 @@ telemetry/
 .vercel/
 
 .vercel
+.env*

@@ -15,7 +15,7 @@ const check = (name, cond, extra = "") => {
 
 const server = spawn(process.execPath, ["server.js"], {
   cwd: process.cwd(),
-  env: { ...process.env, MOCK_MODE: "1", PORT: String(PORT), TELEMETRY_DIR: path.join(os.tmpdir(), `x402-telemetry-test-${Date.now()}`) },
+  env: { ...process.env, MOCK_MODE: "1", PORT: String(PORT), TELEMETRY_HASH_KEY: "local-test-key", TELEMETRY_DIR: path.join(os.tmpdir(), `x402-telemetry-test-${Date.now()}`) },
   stdio: "pipe",
 });
 await new Promise((r) => {
@@ -89,7 +89,7 @@ try {
   check("telemetry logged 402 quote", evTypes.includes("402_quote:web_search"));
   check("telemetry logged paid call", evTypes.includes("paid_call:web_synthesis"));
   const paidEv = events.find((e) => e.event === "paid_call");
-  check("telemetry records price + tx", paidEv?.price_usd === 0.1 && !!paidEv?.tx);
+  check("telemetry records price without raw tx", paidEv?.price_usd === 0.1 && paidEv?.tx === undefined && !!paidEv?.wallet_hash);
 } catch (e) {
   check("E2E ran without exception", false, e.message);
 } finally {

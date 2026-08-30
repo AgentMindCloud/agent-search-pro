@@ -8,7 +8,7 @@ import {
   verifyPayment, settlePayment, paymentResponseHeader, buildPaymentRequirement,
 } from "./src/tools.js";
 import { verifyTxPayment } from "./src/settlement.js";
-import { logEvent, hashWallet } from "./src/telemetry.js";
+import { logEvent } from "./src/telemetry.js";
 import { openApiDocument, wellKnown } from "./src/discovery.js";
 
 const PORT = Number(process.env.PORT || 8787);
@@ -64,7 +64,7 @@ async function executePaid(c, { price, resourceUrl, description, toolName, fn, a
   const settled = await settlePayment(verified.payload, requirement);
   await logEvent({
     tool: toolName, event: settled.ok ? "paid_call" : "settle_failed", method: "x402_v2",
-    price_usd: price, wallet_hash: settled.payer ? hashWallet(settled.payer) : null,
+    price_usd: price, from_wallet: settled.payer || null,
     tx: settled.transaction || null, error: settled.error || null,
   });
   const responseHeader = paymentResponseHeader(settled);

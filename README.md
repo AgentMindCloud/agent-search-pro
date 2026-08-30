@@ -37,6 +37,6 @@ npm test                                # 16-check E2E suite
 See `.env.example`. Requires: `SERPER_API_KEY`, `PAY_TO_ADDRESS` (Base wallet), and `PUBLIC_URL`. `X402_FACILITATOR_URL` optionally overrides the default public XPay facilitator. `ALCHEMY_URL` is only needed for the disabled-by-default manual tx-hash fallback.
 
 ## Telemetry
-Every interaction is emitted as structured `[telemetry]` JSON to platform logs; local development also appends `telemetry/interactions.jsonl`. Durable analytics storage is intentionally not claimed yet.
+Every interaction is emitted as structured `[telemetry]` JSON to platform logs. Production writes one immutable JSON event to a private Vercel Blob store; local development also appends `telemetry/interactions.jsonl`. Wallets are represented only by keyed, pseudonymous identifiers; raw wallet and transaction hashes are excluded.
 
 Part of the Grokbot Autonomous Revenue system (`ranked-playbooks.md`).
