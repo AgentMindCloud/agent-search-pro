@@ -1,0 +1,12 @@
+import { readFile } from 'node:fs/promises';
+let failures = 0;
+const check = (name, ok) => { console.log(`${ok ? 'PASS' : 'FAIL'} ${name}`); if (!ok) failures++; };
+const config = JSON.parse(await readFile('vercel.json', 'utf8'));
+const server = await readFile('server.js', 'utf8');
+check('legacy builds configuration is absent', !('builds' in config));
+check('legacy routes configuration is absent', !('routes' in config));
+check('function region is Singapore', JSON.stringify(config.regions) === JSON.stringify(['sin1']));
+check('Hono app has a default export', /export\s+default\s+app/.test(server));
+check('local server is disabled on Vercel', server.includes('if (!process.env.VERCEL)'));
+console.log(failures ? `\n${failures} FAILURES` : '\nVERCEL CONFIG TEST PASSED');
+process.exit(failures ? 1 : 0);

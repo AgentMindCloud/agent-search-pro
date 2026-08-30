@@ -137,4 +137,8 @@ app.post("/mcp", async (c) => {
 });
 app.get("/mcp", (c) => c.json({ error: "POST only" }, 405));
 
-serve({ fetch: app.fetch, port: PORT }, (info) => console.log(`Agent Search Pro listening on http://localhost:${info.port} (MOCK_MODE=${MOCK_MODE})`));
+if (!process.env.VERCEL) {
+  serve({ fetch: app.fetch, port: PORT }, (info) => console.log(`Agent Search Pro listening on http://localhost:${info.port} (MOCK_MODE=${MOCK_MODE})`));
+}
+
+export default app;
