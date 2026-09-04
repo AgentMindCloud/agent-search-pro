@@ -29,6 +29,7 @@ try {
   check("Free sample is excluded from payment probing", Array.isArray(openapi.paths?.["/api/sample"]?.get?.security) && openapi.paths["/api/sample"].get.security.length === 0);
   check("OpenAPI has a contact URL", openapi.info?.contact?.url === "https://github.com/AgentMindCloud/agent-search-pro/issues");
   check("OpenAPI has the support email", openapi.info?.contact?.email === "api@supersignal.tech");
+  check("OpenAPI labels the beta and signed-settlement limit", /experimental beta/i.test(openapi.info?.description || "") && /signed facilitator settlement is pending independent verification/i.test(openapi.info?.description || ""));
 
   const icon = await fetch(`${BASE}/favicon.ico`);
   check("favicon is served", icon.status === 200 && (icon.headers.get("content-type") || "").includes("svg"));

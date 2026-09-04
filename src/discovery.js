@@ -49,7 +49,7 @@ export function openApiDocument(origin) {
     info: {
       title: "Agent Search Pro",
       version: "0.2.0",
-      description: "Agent-native web search and multi-angle research synthesis paid per call in USDC on Base.",
+      description: "Experimental beta for agent-native web search and multi-angle research synthesis paid per call in USDC on Base. Free access and canonical x402 challenges are verified. Signed facilitator settlement is pending independent verification; external paid demand is not validated.",
       contact: {
         email: "api@supersignal.tech",
         url: "https://github.com/AgentMindCloud/agent-search-pro/issues",
