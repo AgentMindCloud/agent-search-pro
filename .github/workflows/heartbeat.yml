@@ -1,26 +1,15 @@
-name: x402 heartbeat (avoid Coinbase Bazaar 30-day no-paid-call delist)
-# Every 6h: health probe + one real $0.02 paid call from the heartbeat wallet,
-# so the endpoint registers live activity. Costs ~$0.08/day.
+name: Agent Search Pro uptime
+
 on:
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch: {}
 
 jobs:
-  heartbeat:
+  uptime:
     runs-on: ubuntu-latest
     steps:
-      - name: Health probe
+      - name: Verify production health
         run: |
-          curl -sf "$PUBLIC_URL/health" || (echo "HEALTH FAILED" && exit 1)
-      - name: Free sample call (activity signal)
-        run: |
-          curl -sf -X POST "$PUBLIC_URL/mcp" \
-            -H "Content-Type: application/json" \
-            -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"web_search_sample","arguments":{"query":"heartbeat"}}}' \
-            | grep -q web_search_sample && echo "SAMPLE OK"
-      # NOTE: a true paid heartbeat requires the x402 client SDK with the
-      # heartbeat wallet's key (EIP-3009 signing). Wire this in when the wallet
-      # exists: use @x402/fetch with privateKey from the HEARTBEAT_WALLET_KEY
-      # secret to call web_search ($0.02). Until then the free-sample probe
-      # above keeps the endpoint verified-alive on monitors.
+          curl --fail --silent --show-error --max-time 30 \
+            https://aggregator-beta.vercel.app/health

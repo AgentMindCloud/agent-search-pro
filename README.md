@@ -13,14 +13,32 @@ Agent-native web search and research synthesis, paid per call in **USDC on Base*
 | `web_search` | **$0.02**/call | Full search, up to 10 results (Serper) |
 | `web_synthesis` | **$0.10**/call | Multi-angle research synthesis: core + latest + critique (3 parallel searches) |
 
-## Use (any MCP client, streamable HTTP)
+## Try the live service in 10 seconds
+No account, wallet, API key, or installation:
+
+```bash
+curl -s "https://aggregator-beta.vercel.app/api/sample?q=latest+AI+agent+payments"
 ```
-POST https://<deployed-url>/mcp
+
+The free route returns three live results. It is intentionally limited so agents can test output quality before deciding whether a paid call is worthwhile.
+
+## Connect as a remote MCP server
+Use this exact Streamable HTTP endpoint in any MCP client that supports remote servers:
+
+```text
+https://aggregator-beta.vercel.app/mcp
+```
+
+The MCP tools are `web_search_sample` (free), `web_search` ($0.02), and `web_synthesis` ($0.10). A raw JSON-RPC call looks like:
+
+```http
+POST https://aggregator-beta.vercel.app/mcp
 Content-Type: application/json
 
-{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"web_search","arguments":{"query":"x402 protocol"}}}
+{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"web_search_sample","arguments":{"query":"x402 protocol"}}}
 ```
-Unpaid calls → **HTTP 402** with a canonical base64 `PAYMENT-REQUIRED` header (x402 V2). Compatible agent clients retry with `PAYMENT-SIGNATURE`; the public XPay facilitator verifies and settles EIP-3009 USDC directly from buyer to seller on Base.
+
+Paid calls return **HTTP 402** with a canonical base64 `PAYMENT-REQUIRED` header (x402 V2). Compatible agent clients retry with `PAYMENT-SIGNATURE`; the public XPay facilitator verifies and settles EIP-3009 USDC directly from buyer to seller on Base.
 
 ## Discovery surfaces
 - `GET /health` — liveness + tiers

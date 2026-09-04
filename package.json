@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node --env-file=.env server.js",
     "dev": "node --env-file=.env --watch server.js",
-    "test": "node test/telemetry-unit.js && node test/local-e2e.js"
+    "test": "node test/telemetry-unit.js && node test/local-e2e.js && node test/discovery-e2e.js && node test/vercel-config.test.mjs && node test/workflow-policy.test.mjs && node test/public-docs.test.mjs"
   },
   "dependencies": {
     "@vercel/blob": "^2.8.0",
