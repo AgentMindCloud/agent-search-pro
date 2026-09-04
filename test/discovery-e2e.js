@@ -49,6 +49,7 @@ try {
   const required = JSON.parse(Buffer.from(encoded || "", "base64").toString("utf8") || "{}");
   check("V2 uses accepts", required.x402Version === 2 && Array.isArray(required.accepts) && required.accepts.length === 1);
   check("V2 uses atomic amount", required.accepts?.[0]?.amount === "20000");
+  check("Base USDC uses the contract EIP-712 domain", required.accepts?.[0]?.extra?.name === "USD Coin" && required.accepts?.[0]?.extra?.version === "2");
   check("V2 names exact public resource", required.resource?.url === `${BASE}/api/search`);
   check("Bazaar input schema is present", required.extensions?.bazaar?.schema?.properties?.input?.type === "object");
   check("Bazaar output schema is present", required.extensions?.bazaar?.schema?.properties?.output?.type === "object");

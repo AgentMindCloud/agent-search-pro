@@ -69,7 +69,7 @@ export function buildPaymentRequirement(priceUsd) {
     asset: BASE_USDC,
     payTo: PAY_TO_ADDRESS,
     maxTimeoutSeconds: 60,
-    extra: { name: "USDC", version: "2", assetTransferMethod: "eip3009", paymentFlow: "authorization" },
+    extra: { name: "USD Coin", version: "2", assetTransferMethod: "eip3009", paymentFlow: "authorization" },
   };
 }
 
