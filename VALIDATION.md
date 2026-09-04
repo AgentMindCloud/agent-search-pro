@@ -20,10 +20,13 @@ Most quote events arrive as near-hourly search/synthesis pairs. They are consist
 - Local mock-mode API, MCP, discovery, deployment-policy, documentation, and telemetry tests pass.
 - One operator-funded direct-transfer dogfood transaction proved the Base USDC receipt-check and fulfillment path.
 - One operator-funded signed x402 search purchase proved the standard `PAYMENT-SIGNATURE` path end to end: an official x402 client received HTTP 402, signed an EIP-3009 authorization, XPay verified and settled it, Base transferred 0.02 USDC to the configured service wallet, and `/api/search` returned HTTP 200 with eight live results.
+- One operator-funded signed x402 synthesis purchase proved the same standard path on the second paid route: Base transferred 0.10 USDC and `/api/synthesis` returned HTTP 200 with three research angles and 15 live sources.
 - AgentCash checks prove runtime x402 discovery compliance for the two paid HTTP routes.
 - The remote MCP server is active in the official MCP Registry.
 
-### Canonical signed x402 proof (operator-funded; excluded from demand)
+### Canonical signed x402 proofs (operator-funded; excluded from demand)
+
+#### Paid search
 
 - Block time: `2026-09-04T18:05:29Z`
 - Base transaction: [`0x05d41f696732284339130d869cdc84b0d259f5122b9d61212bcd083675952555`](https://basescan.org/tx/0x05d41f696732284339130d869cdc84b0d259f5122b9d61212bcd083675952555)
@@ -36,7 +39,20 @@ Most quote events arrive as near-hourly search/synthesis pairs. They are consist
 - Durable telemetry result: `paid_call`, method `x402_v2`, price `0.02`
 - Public proof artifact: [`proofs/x402-search-2026-09-04.json`](proofs/x402-search-2026-09-04.json)
 
-This establishes that the canonical paid search route works technically. It is a controlled operator-funded engineering proof, not customer revenue or market demand. The paid synthesis route shares the payment middleware and passes automated tests, but synthesis has not been separately live-purchased on mainnet. There is still no unaffiliated buyer, repeat purchase, or viable-unit-economics evidence.
+#### Paid synthesis
+
+- Block time: `2026-09-04T18:54:27Z`
+- Base transaction: [`0x67bae3bafd3e93ec671a2ec516b3ac3826603938d8518a18b97dc221e3eadc9a`](https://basescan.org/tx/0x67bae3bafd3e93ec671a2ec516b3ac3826603938d8518a18b97dc221e3eadc9a)
+- Route: `POST /api/synthesis`
+- Buyer: the same disposable operator-funded wallet, funded with exactly 0.10 USDC
+- Client: official `@x402/fetch` and `@x402/evm` version `2.25.0`
+- Facilitator: `https://facilitator.xpay.sh`
+- On-chain result: successful 0.10 USDC transfer from buyer to configured recipient
+- Delivery result: HTTP 200, three research angles, and 15 live sources
+- Durable telemetry result: `paid_call`, method `x402_v2`, price `0.10`
+- Public proof artifact: [`proofs/x402-synthesis-2026-09-04.json`](proofs/x402-synthesis-2026-09-04.json)
+
+These establish that both canonical paid routes work technically. They are controlled operator-funded engineering proofs, not customer revenue or market demand. There is still no unaffiliated buyer, repeat purchase, or viable-unit-economics evidence.
 
 ## Clean demand window
 

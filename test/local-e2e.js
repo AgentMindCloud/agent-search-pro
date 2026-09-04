@@ -36,7 +36,7 @@ try {
   check("x402 well-known", wk.resources?.includes("https://aggregator-beta.vercel.app/api/search") && wk.x402Version === 2);
   const llms = await (await fetch(`${BASE}/llms.txt`)).text();
   check("llms.txt", llms.includes("/api/search") && llms.includes("USDC") && llms.includes("api@supersignal.tech"));
-  check("llms.txt states the exact signed-settlement evidence boundary", llms.includes("Experimental beta") && llms.includes("Signed facilitator settlement: verified for one operator-funded /api/search purchase") && llms.includes("Paid synthesis mainnet purchase: not separately tested") && llms.includes("External paid demand: not validated"));
+  check("llms.txt states the exact signed-settlement evidence boundary", llms.includes("Experimental beta") && llms.includes("Signed facilitator settlement: verified for operator-funded /api/search and /api/synthesis purchases") && llms.includes("0x67bae3bafd3e93ec671a2ec516b3ac3826603938d8518a18b97dc221e3eadc9a") && llms.includes("External paid demand: not validated"));
 
   // 3. initialize + session
   const init = await post({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} });
