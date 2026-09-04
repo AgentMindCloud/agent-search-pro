@@ -49,7 +49,7 @@ export function openApiDocument(origin) {
     info: {
       title: "Agent Search Pro",
       version: "0.2.0",
-      description: "Experimental beta for agent-native web search and multi-angle research synthesis paid per call in USDC on Base. Free access and canonical x402 challenges are verified. Signed facilitator settlement is pending independent verification; external paid demand is not validated.",
+      description: "Experimental beta for agent-native web search and multi-angle research synthesis paid per call in USDC on Base. Free access, canonical x402 challenges, and one operator-funded signed x402 search purchase through facilitator verify and settle are verified on Base. This proves the paid search path works; external paid demand is not validated. Paid synthesis has not been separately purchased on mainnet.",
       contact: {
         email: "api@supersignal.tech",
         url: "https://github.com/AgentMindCloud/agent-search-pro/issues",

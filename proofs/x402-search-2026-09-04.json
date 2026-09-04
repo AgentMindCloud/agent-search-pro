@@ -1,0 +1,54 @@
+{
+  "schema": "supersignal/x402-level4-proof/v1",
+  "proofLevel": 4,
+  "proofLevelMeaning": "Signed facilitator settlement plus paid resource delivery",
+  "operatorFunded": true,
+  "externalDemand": false,
+  "commercialProof": false,
+  "route": "https://aggregator-beta.vercel.app/api/search",
+  "tool": "web_search",
+  "network": "eip155:8453",
+  "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  "payer": "0xd35Eefa097D97daCe7B0Cb1015E124907b199b1E",
+  "recipient": "0x2afbBE0F1D4F2c721B7e535E695f72e88997Ad29",
+  "amountAtomic": "20000",
+  "amountUsdc": "0.02",
+  "officialClient": {
+    "@x402/fetch": "2.25.0",
+    "@x402/evm": "2.25.0"
+  },
+  "facilitator": "https://facilitator.xpay.sh",
+  "initialStatus": 402,
+  "paidStatus": 200,
+  "challengeValidated": true,
+  "challengeHash": "178f8e519019f8badf8a94d77e312ca1b10fec31480b5001b6d98e0549252732",
+  "settlementSuccess": true,
+  "transaction": "0x05d41f696732284339130d869cdc84b0d259f5122b9d61212bcd083675952555",
+  "blockNumber": "50877891",
+  "blockTimestamp": "2026-09-04T18:05:29.000Z",
+  "transferLogVerified": true,
+  "buyerBalanceBefore": "0.02",
+  "buyerBalanceAfter": "0",
+  "recipientIncreaseAtLeastExpected": true,
+  "output": {
+    "resultCount": 8,
+    "live": true
+  },
+  "independentChecks": {
+    "publicBaseRpc": {
+      "endpoint": "https://mainnet.base.org",
+      "receiptStatus": "success",
+      "exactTransferVerified": true
+    },
+    "durableProductionTelemetry": {
+      "event": "paid_call",
+      "method": "x402_v2",
+      "priceUsd": 0.02,
+      "timestamp": "2026-09-04T18:05:29.682Z"
+    }
+  },
+  "deployedSourceCommit": "c7a8098",
+  "startedAt": "2026-09-04T18:05:18.395Z",
+  "completedAt": "2026-09-04T18:05:31.444Z",
+  "scopeNote": "This proves the paid search path works technically. It does not prove external demand, repeat usage, or the separately priced synthesis route."
+}

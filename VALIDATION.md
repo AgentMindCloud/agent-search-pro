@@ -19,10 +19,24 @@ Most quote events arrive as near-hourly search/synthesis pairs. They are consist
 
 - Local mock-mode API, MCP, discovery, deployment-policy, documentation, and telemetry tests pass.
 - One operator-funded direct-transfer dogfood transaction proved the Base USDC receipt-check and fulfillment path.
+- One operator-funded signed x402 search purchase proved the standard `PAYMENT-SIGNATURE` path end to end: an official x402 client received HTTP 402, signed an EIP-3009 authorization, XPay verified and settled it, Base transferred 0.02 USDC to the configured service wallet, and `/api/search` returned HTTP 200 with eight live results.
 - AgentCash checks prove runtime x402 discovery compliance for the two paid HTTP routes.
 - The remote MCP server is active in the official MCP Registry.
 
-A standard signed `PAYMENT-SIGNATURE` purchase through facilitator verify and settle has not yet been independently verified. There is also no unaffiliated buyer, repeat purchase, or viable-unit-economics evidence.
+### Canonical signed x402 proof (operator-funded; excluded from demand)
+
+- Block time: `2026-09-04T18:05:29Z`
+- Base transaction: [`0x05d41f696732284339130d869cdc84b0d259f5122b9d61212bcd083675952555`](https://basescan.org/tx/0x05d41f696732284339130d869cdc84b0d259f5122b9d61212bcd083675952555)
+- Route: `POST /api/search`
+- Buyer: disposable DPAPI-encrypted wallet, funded by the operator with exactly 0.02 USDC
+- Client: official `@x402/fetch` and `@x402/evm` version `2.25.0`
+- Facilitator: `https://facilitator.xpay.sh`
+- On-chain result: successful 0.02 USDC transfer from buyer to configured recipient
+- Delivery result: HTTP 200 and eight live web results
+- Durable telemetry result: `paid_call`, method `x402_v2`, price `0.02`
+- Public proof artifact: [`proofs/x402-search-2026-09-04.json`](proofs/x402-search-2026-09-04.json)
+
+This establishes that the canonical paid search route works technically. It is a controlled operator-funded engineering proof, not customer revenue or market demand. The paid synthesis route shares the payment middleware and passes automated tests, but synthesis has not been separately live-purchased on mainnet. There is still no unaffiliated buyer, repeat purchase, or viable-unit-economics evidence.
 
 ## Clean demand window
 

@@ -4,7 +4,7 @@ Live endpoint: **https://aggregator-beta.vercel.app**
 
 Agent-native web search and research synthesis, paid per call in **USDC on Base** via [x402](https://x402.org). No buyer API keys, accounts, or subscriptions. Includes standard HTTP routes for x402 discovery plus a streamable HTTP MCP facade.
 
-> Experimental beta. Verified: the website, free API/MCP path, canonical 402 challenges, durable telemetry, and a controlled direct-transfer 0.02 USDC fulfillment test. A standard signed `PAYMENT-SIGNATURE` purchase through facilitator verify and settle has not yet been independently verified. There is no external paid demand or repeat buyer. See the [public validation baseline and fixed decision rule](VALIDATION.md).
+> Experimental beta. Verified: the website, free API/MCP path, canonical 402 challenges, durable telemetry, and a controlled direct-transfer 0.02 USDC fulfillment test. On 2026-09-04 UTC, one operator-funded signed `PAYMENT-SIGNATURE` search purchase through XPay verify and settle was verified end to end: HTTP 402, signed EIP-3009 authorization, successful Base settlement, HTTP 200, and eight live results ([transaction](https://basescan.org/tx/0x05d41f696732284339130d869cdc84b0d259f5122b9d61212bcd083675952555)). This proves the canonical paid `/api/search` path works, but it is not external demand. Paid synthesis has not been separately purchased on mainnet. There is no external paid demand or repeat buyer. See the [public validation baseline and fixed decision rule](VALIDATION.md).
 
 ## Tiers
 | Tool | Price | What you get |
