@@ -4,7 +4,7 @@ Live endpoint: **https://aggregator-beta.vercel.app**
 
 Agent-native web search and research synthesis, paid per call in **USDC on Base** via [x402](https://x402.org). No buyer API keys, accounts, or subscriptions. Includes standard HTTP routes for x402 discovery plus a streamable HTTP MCP facade.
 
-> Experimental service: payment and search paths are working and dogfooded with a real 0.02 USDC Base transaction. Availability, pricing, and upstream providers may change during validation. See the [public validation baseline and fixed decision rule](VALIDATION.md).
+> Experimental beta. Verified: the website, free API/MCP path, canonical 402 challenges, durable telemetry, and a controlled direct-transfer 0.02 USDC fulfillment test. A standard signed `PAYMENT-SIGNATURE` purchase through facilitator verify and settle has not yet been independently verified. There is no external paid demand or repeat buyer. See the [public validation baseline and fixed decision rule](VALIDATION.md).
 
 ## Tiers
 | Tool | Price | What you get |
