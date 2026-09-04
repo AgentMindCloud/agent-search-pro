@@ -4,7 +4,7 @@ Live endpoint: **https://aggregator-beta.vercel.app**
 
 Agent-native web search and research synthesis, paid per call in **USDC on Base** via [x402](https://x402.org). No buyer API keys, accounts, or subscriptions. Includes standard HTTP routes for x402 discovery plus a streamable HTTP MCP facade.
 
-> Experimental service: payment and search paths are working and dogfooded with a real 0.02 USDC Base transaction. Availability, pricing, and upstream providers may change during validation.
+> Experimental service: payment and search paths are working and dogfooded with a real 0.02 USDC Base transaction. Availability, pricing, and upstream providers may change during validation. See the [public validation baseline and fixed decision rule](VALIDATION.md).
 
 ## Tiers
 | Tool | Price | What you get |
@@ -57,4 +57,4 @@ See `.env.example`. Requires: `SERPER_API_KEY`, `PAY_TO_ADDRESS` (Base wallet), 
 ## Telemetry
 Every interaction is emitted as structured `[telemetry]` JSON to platform logs. Production writes one immutable JSON event to a private Vercel Blob store; local development also appends `telemetry/interactions.jsonl`. Wallets are represented only by keyed, pseudonymous identifiers; raw wallet and transaction hashes are excluded.
 
-Part of the Grokbot Autonomous Revenue system (`ranked-playbooks.md`).
+Part of [SuperSignal](https://supersignal.tech), an evidence-driven experiment in useful agent-native services.
